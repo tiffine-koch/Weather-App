@@ -1,64 +1,45 @@
 
 'use strict';
 $(document).ready(init);
+//use this for zip code
 
 function init() {
-$.ajax({
-    url:"http://api.wunderground.com/api/fa798b8605df3bb3/geolookup/q/autoip.json",
+  var s = 'autoip';
+  getData(s);
+  ('#zip').on('click', zipClicked);
+}
+
+// function getData(s) {
+//   $.ajax({
+//       url:'http://api.wunderground.com/api/fa798b8605df3bb3/geolookup/q/'+ s +'.json',
+//       type: "GET",
+//       // contentType:"jsonp",
+//       success: function(data) {
+//         console.log(data);
+//         getForecast();
+//       }
+//     });
+// }
+
+function getZip() {
+    var zip = $('#zip').val();
+    zip = data.location.zip;
+    zipClicked();
+  };
+
+function zipClicked() {
+  $.ajax({
+     url:"http://api.wunderground.com/api/fa798b8605df3bb3/geolookup/q/" + zip ".json",
     type: "GET",
     // contentType:"jsonp",
     success: function(data) {
       console.log(data);
-      var $city =  $('<p>').text(data.location.city);
-      var $state = $('<p>').text(data.location.state);
-    	console.log($city);
-    	console.log($state);
-    	$('.city').append($city);
-    	$('.state').append($state);
-  	},
+      var $zip =  $('<p>').text("Currtent zip " + data.location.zip);
+    	console.log($zip);
+    	$('#zipCode').append($zip);
+  	}
   });
-  getForecast();
-  ('#button').on('click', zipClicked);
 }
-function getConditions() {
-$.ajax({
-     url:"http://api.wunderground.com/api/fa798b8605df3bb3/conditions/q/CA/San_Francisco.json",
-    type: "GET",
-    // contentType:"jsonp",
-    success: function(data) {
-      var $temp =  $('<p>').text(data.current_observation.temp_f);
-    	$('#temp').append($temp);
-  	},
-  });
-  }
-getConditions();
-
-// function getZip() {
-//   var zip = $('#newEntry').val();
-//   $.ajax({
-//      url:"http://api.wunderground.com/api/fa798b8605df3bb3/geolookup/q/" + zip ".json",
-//     type: "GET",
-//     // contentType:"jsonp",
-//     success: function(data) {
-//       console.log(data);
-//       var $zip =  $('<p>').text("Currtent zip " + data.location.zip);
-//     	console.log($zip);
-//     	$('#zipCode').append($zip);
-//   	}
-//   });
-// }
-// getZip();
-//
-// function zipClicked() {
-//   var zip = $('#newEntry').val();
-//     $.ajax({
-//       url:"http://api.wunderground.com/api/fa798b8605df3bb3/forecast/q/" + zip ".json",
-//       type: "GET",
-//       // contentType:"jsonp",
-//       success: function(data) {
-//         console.log(data)
-//
-// }
 
 function getForecast() {
   $.ajax({
@@ -66,7 +47,10 @@ function getForecast() {
     type: "GET",
     // contentType:"jsonp",
     success: function(data) {
-      console.log(data);
+      var $temp =  $('<p>').text(data.current_observation.temp_f);
+      var $city =  $('<p>').text(data.location.city);
+      var $state = $('<p>').text(data.location.state);
+
       var $highDay1 = $('<p>').text("Hi " +  data.forecast.simpleforecast.forecastday[0].high.fahrenheit);
       var $highDay2 = $('<p>').text("Hi " + data.forecast.simpleforecast.forecastday[1].high.fahrenheit);
       var $highDay3 = $('<p>').text("Hi " + data.forecast.simpleforecast.forecastday[2].high.fahrenheit);
@@ -79,8 +63,9 @@ function getForecast() {
       var $conditionsDay2 = $('<p>').text("Tomorrow - " + data.forecast.simpleforecast.forecastday[1].conditions);
       var $conditionsDay3 = $('<p>').text("Day After Tomorrow - " + data.forecast.simpleforecast.forecastday[2].conditions);
 
-    	console.log($conditionsDay1);
-
+      $('.city').append($city);
+      $('.state').append($state);
+      $('#temp').append($temp);
     	$('.forecast1').append($highDay1);
     	$('.forecast1').append($lowDay1);
     	$('.forecast1').append($conditionsDay1);
