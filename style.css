@@ -11,60 +11,38 @@ h1 {
   /*display: flex;*/
   color: #000;
   font-size: 20px;
-  margin-left: 70px;
+  margin-left: 10px;
 }
 
 #container {
   width: 90%;
   margin: auto;
 }
-.square {
-  display: flex;
-  padding: 2px;
-  font-size: 20px;
-  text-align: center;
-  width: 70px;
-  height: 60px;
-  border:1px red solid;
+
+input {
+  margin-bottom: 10px;
 }
-/*#container {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
-  margin-bottom: 5px;
-}*/
-.containerRow2 {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
-  margin-bottom: 5px;
+img {
+  border: 5px white solid;
 }
+
 img {
   /*display:flex;*/
   border-radius: 5px;
-  border: 1px black solid;
+  border: 10px white solid;
   /*margin-left: 600px;*/
 }
 #temp {
   /*display: flex;*/
   color: #000;
-  font-size: 20px;
+  font-size: 16px;
 }
 #zipCode{
   /*display: flex;*/
   color: #000;
-  font-size: 20px;
+  font-size: 14px;
 }
 #forecast{
   color: #000;
   font-size: 20px;
-}
-
-.facts {
-  height: 50px;
-  width: 20px;
-  border-color: #000;
-  border-style: 1px solid;
 }

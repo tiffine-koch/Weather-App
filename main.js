@@ -3,13 +3,13 @@
 $(document).ready(init);
 //use this for zip code
 
-var $city = ('#city');
-var $state = ('#state');
-var $temp = ('#temp');
-var $zip = ('#zipCode');
-var $forecast1 = ('#forecast1');
-var $forecast2 = ('#forecast2');
-var $forecast3 = ('#forecast3');
+// var $city = ('#city');
+// var $state = ('#state');
+// var $temp = ('#temp');
+// var $zip = ('#zipCode');
+// var $forecast1 = ('#forecast1');
+// var $forecast2 = ('#forecast2');
+// var $forecast3 = ('#forecast3');
 
 function init() {
 $.ajax({
@@ -26,60 +26,82 @@ $.ajax({
     	$('.state').append($state);
   	},
   });
-  }
+  getForecast();
+  ('#button').on('click', zipClicked);
+}
 function getConditions() {
 $.ajax({
      url:"http://api.wunderground.com/api/fa798b8605df3bb3/conditions/q/CA/San_Francisco.json",
     type: "GET",
     // contentType:"jsonp",
     success: function(data) {
-      console.log(data);
-      var $temp_f =  $('<li>').text(data.current_observation.temp_f);
-    	console.log($temp_f);
-    	$('#temp').append($temp_f);
+      var $temp =  $('<p>').text(data.current_observation.temp_f);
+    	$('#temp').append($temp);
   	},
   });
   }
+getConditions();
 
-function getZip() {
-  $.ajax({
-     url:"http://api.wunderground.com/api/fa798b8605df3bb3/geolookup/q/94107.json",
-    type: "GET",
-    // contentType:"jsonp",
-    success: function(data) {
-      console.log(data);
-      var $zip =  $('<li>').text(data.location.zip);
-    	console.log($zip);
-    	$('#zipCode').append($zip);
-  	}
-  });
-}
-getZip();
-
+// function getZip() {
+//   var zip = $('#newEntry').val();
+//   $.ajax({
+//      url:"http://api.wunderground.com/api/fa798b8605df3bb3/geolookup/q/" + zip ".json",
+//     type: "GET",
+//     // contentType:"jsonp",
+//     success: function(data) {
+//       console.log(data);
+//       var $zip =  $('<p>').text("Currtent zip " + data.location.zip.toString);
+//     	console.log($zip);
+//     	$('#zipCode').append($zip);
+//   	}
+//   });
+// }
+// getZip();
+//
+// function zipClicked() {
+//   var zip = $('#newEntry').val();
+//     $.ajax({
+//       url:"http://api.wunderground.com/api/fa798b8605df3bb3/forecast/q/" + zip ".json",
+//       type: "GET",
+//       // contentType:"jsonp",
+//       success: function(data) {
+//         console.log(data)
+//
+// }
 
 function getForecast() {
   $.ajax({
-     url:"http://api.wunderground.com/api/fa798b8605df3bb3/forecast/q/94107.json",
+    url:"http://api.wunderground.com/api/fa798b8605df3bb3/forecast/q/94107.json",
     type: "GET",
     // contentType:"jsonp",
     success: function(data) {
       console.log(data)
+      // for (var i = 0; i < 2; i++) {
+      //
+      // })
+      var $highDay1 = $('<p>').text("Hi " +  data.forecast.simpleforecast.forecastday[0].high.fahrenheit);
+      var $highDay2 = $('<p>').text("Hi " + data.forecast.simpleforecast.forecastday[1].high.fahrenheit);
+      var $highDay3 = $('<p>').text("Hi " + data.forecast.simpleforecast.forecastday[2].high.fahrenheit);
 
-      var $highDay1 = $('<li>').text(data.forecast.simpleforecast.forecastday[0].high.fahrenheit);
-      var $highDay2 = $('<li>').text(data.forecast.simpleforecast.forecastday[1].high.fahrenheit);
-      var $highDay3 = $('<li>').text(data.forecast.simpleforecast.forecastday[2].high.fahrenheit);
+      var $lowDay1 = $('<p>').text("Lo " + data.forecast.simpleforecast.forecastday[0].low.fahrenheit);
+      var $lowDay2 = $('<p>').text("Lo " + data.forecast.simpleforecast.forecastday[1].low.fahrenheit);
+      var $lowDay3 = $('<p>').text("Lo " + data.forecast.simpleforecast.forecastday[2].low.fahrenheit);
 
-      var $tempDay1 = $('<li>').text(data.forecast.simpleforecast.forecastday[0].low.fahrenheit);
-      var $lowDay2 = $('<li>').text(data.forecast.simpleforecast.forecastday[1].low.fahrenheit);
-      var $lowDay3 = $('<li>').text(data.forecast.simpleforecast.forecastday[2].low.fahrenheit);
-
-      var $conditionsDay1 = $('<li>').text(data.forecast.simpleforecast.forecastday[0].conditions);
-      var $conditionsDay2 = $('<li>').text(data.forecast.simpleforecast.forecastday[1].conditions);
-      var $conditionsDay3 = $('<li>').text(data.forecast.simpleforecast.forecastday[2].conditions);
+      var $conditionsDay1 = $('<p>').text(data.forecast.simpleforecast.forecastday[0].conditions);
+      var $conditionsDay2 = $('<p>').text(data.forecast.simpleforecast.forecastday[1].conditions);
+      var $conditionsDay3 = $('<p>').text(data.forecast.simpleforecast.forecastday[2].conditions);
 
     	console.log($conditionsDay1);
-    	$('#forecast').append($highDay1);
+
+    	$('.forecast1').append($highDay1);
+    	$('.forecast1').append($lowDay1);
+    	$('.forecast1').append($conditionsDay1);
+    	$('.forecast2').append($highDay2);
+    	$('.forecast2').append($lowDay2);
+    	$('.forecast2').append($conditionsDay2);
+    	$('.forecast3').append($highDay3);
+    	$('.forecast3').append($lowDay3);
+    	$('.forecast3').append($conditionsDay3);
   	}
   });
 }
-getForecast();
