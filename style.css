@@ -22,6 +22,7 @@ h1 {
 input {
   margin-bottom: 10px;
 }
+
 img {
   border: 5px white solid;
 }
@@ -45,4 +46,21 @@ img {
 #forecast{
   color: #000;
   font-size: 20px;
+}
+
+#space_container {
+  margin-top: 30px;
+}
+
+#wu {
+  margin-top: 55px;
+  height: 300px;
+  width: 400px;
+}
+
+#stars {
+  background-color: white;
+  border: 3px solid navy;
+  height: 300px;
+  width: 400px;
 }

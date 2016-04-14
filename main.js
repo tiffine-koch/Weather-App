@@ -18,7 +18,7 @@ $.ajax({
   	},
   });
   getForecast();
-  ('#button').on('click', zipClicked);
+  ('#zip').on('click', zipClicked);
 }
 function getConditions() {
 $.ajax({
@@ -47,18 +47,7 @@ getConditions();
 //   	}
 //   });
 // }
-// getZip();
-//
-// function zipClicked() {
-//   var zip = $('#newEntry').val();
-//     $.ajax({
-//       url:"http://api.wunderground.com/api/fa798b8605df3bb3/forecast/q/" + zip ".json",
-//       type: "GET",
-//       // contentType:"jsonp",
-//       success: function(data) {
-//         console.log(data)
-//
-// }
+
 
 function getForecast() {
   $.ajax({
